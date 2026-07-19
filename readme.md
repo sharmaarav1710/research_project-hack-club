@@ -48,8 +48,7 @@ Application Interface
 Here is a visual overview of the live clinical command center interface in action:
 
 Initial dashboard view before symptom input:
-[Initial Interface View](sc1 project 1.png)
+![Initial Interface View](sc1 project 1.png)
 
 Active diagnosis prediction panel demonstrating feature attribution mapping:
-[Active Diagnostic Analysis](sc2 project 2.png)
-
+![Active Diagnostic Analysis](sc2 project 2.png)
