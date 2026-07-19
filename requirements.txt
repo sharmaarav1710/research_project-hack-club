@@ -8,6 +8,3 @@ pillow
 scikit-learn
 fastapi
 uvicorn
-llvmlite>=0.42.0
-numba>=0.59.0
-shap>=0.45.0

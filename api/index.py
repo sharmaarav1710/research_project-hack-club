@@ -3,7 +3,6 @@ import io
 import numpy as np
 import pandas as pd
 import gradio as gr
-import xgboost as xgb
 import shap
 import matplotlib
 # Use the non-interactive Agg backend to prevent GUI thread crashes on Vercel
@@ -94,10 +93,7 @@ lr_model.fit(X_train, y_train)
 rf_model = RandomForestClassifier(n_estimators=150, random_state=42)
 rf_model.fit(X_train, y_train)
 
-xgb_model = xgb.XGBClassifier(eval_metric='mlogloss', random_state=42)
-xgb_model.fit(X_train, y_train)
-
-models = {'Logistic Regression': lr_model, 'Random Forest': rf_model, 'XGBoost': xgb_model}
+models = {'Logistic Regression': lr_model, 'Random Forest': rf_model}
 metrics = {}
 
 for name, model in models.items():
