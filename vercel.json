@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/index.py": {
+      "excludeFiles": "**/.* **/*.md **/.gradio/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
