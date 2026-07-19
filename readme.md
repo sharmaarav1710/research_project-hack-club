@@ -39,4 +39,17 @@ Local Setup Instructions
 3. Start the application locally with: python app.py
 4. Open the local link generated in your terminal to interact with the interface.
 
-Thank you!!!
+AI Usage Declaration
+
+AI tools were used during development to assist in generating boilerplate UI layout code, constructing basic data pipelines, and debugging cloud deployment configuration scripts. All core algorithmic architectures, machine learning model selections (such as the Gradient Boosting Classifier), and data engineering implementations were independently designed, integrated, and validated for clinical relevance.
+
+Application Interface
+
+Here is a visual overview of the live clinical command center interface in action:
+
+Initial dashboard view before symptom input:
+[Initial Interface View](sc1 project 1.png)
+
+Active diagnosis prediction panel demonstrating feature attribution mapping:
+[Active Diagnostic Analysis](sc2 project 2.png)
+
