@@ -1,8 +1,10 @@
-gradio
-pandas
 numpy
-scikit-learn
+pandas
+gradio
 xgboost
 shap
 matplotlib
 pillow
+scikit-learn
+fastapi
+uvicorn
