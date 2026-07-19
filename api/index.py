@@ -3,7 +3,6 @@ import io
 import numpy as np
 import pandas as pd
 import gradio as gr
-import shap
 import matplotlib
 # Use the non-interactive Agg backend to prevent GUI thread crashes on Vercel
 matplotlib.use('Agg')
@@ -105,33 +104,36 @@ for name, model in models.items():
         'F1-Score': f1_score(y_test, preds, average='macro', zero_division=0)
     }
 
-def generate_shap_plot(model_name, input_vector):
+def generate_importance_plot(model_name, input_vector):
     plt.clf()
     fig, ax = plt.subplots(figsize=(7, 4.5))
     selected_model = models[model_name]
 
+    # Compute a local attribution representation using model internals
     if model_name == "Logistic Regression":
-        coefs = selected_model.coef_[0]
-        shap_vals = coefs * input_vector[0]
+        # Multi-class coefficients shape: (n_classes, n_features) -> use the mean magnitude across classes scaled by presence
+        importance_vals = np.mean(np.abs(selected_model.coef_), axis=0) * input_vector[0]
     else:
-        explainer = shap.TreeExplainer(selected_model)
-        shap_vals_all = explainer.shap_values(input_vector)
-        if isinstance(shap_vals_all, list):
-            shap_vals = shap_vals_all[0][0]
-        elif len(shap_vals_all.shape) == 3:
-            shap_vals = shap_vals_all[0, :, 0]
-        else:
-            shap_vals = shap_vals_all[0]
+        # Random Forest global feature importance scaled by patient presence
+        importance_vals = selected_model.feature_importances_ * input_vector[0]
     
-    indices = np.argsort(np.abs(shap_vals))[-10:]
-    top_vals = shap_vals[indices]
+    # If the user selected no symptoms, display global model indicators instead
+    if np.sum(input_vector) == 0:
+        if model_name == "Logistic Regression":
+            importance_vals = np.mean(np.abs(selected_model.coef_), axis=0)
+        else:
+            importance_vals = selected_model.feature_importances_
+
+    indices = np.argsort(importance_vals)[-10:]
+    top_vals = importance_vals[indices]
     top_features = [HPO_FEATURES[i] for i in indices]
     
-    colors = ['#ff0051' if val >= 0 else '#008bfb' for val in top_vals]
+    # Use standard diagnostic styling colors
+    colors = ['#008bfb' if val > 0 else '#ff0051' for val in top_vals]
     ax.barh(np.arange(len(top_vals)), top_vals, align='center', color=colors)
     ax.set_yticks(np.arange(len(top_vals)))
     ax.set_yticklabels(top_features)
-    ax.set_xlabel('SHAP Feature Attribution (Risk Factor Impact)')
+    ax.set_xlabel('Feature Importance Attribution Weight')
     ax.set_title(f'{model_name} Local Symptom Attribution Map')
     plt.tight_layout()
 
@@ -155,8 +157,8 @@ def clinician_diagnose(selected_model, symptom_checklist):
     results = {disease_list[i]: float(probabilities[i]) for i in range(len(disease_list))}
     sorted_results = dict(sorted(results.items(), key=lambda item: item[1], reverse=True)[:5])
 
-    shap_chart = generate_shap_plot(selected_model, input_vector)
-    return sorted_results, shap_chart
+    chart_output = generate_importance_plot(selected_model, input_vector)
+    return sorted_results, chart_output
 
 # Build Gradio UI
 with gr.Blocks(title="Rare Disease Diagnostics Portal") as demo:
@@ -171,7 +173,7 @@ with gr.Blocks(title="Rare Disease Diagnostics Portal") as demo:
                 submit_btn = gr.Button("Analyze Symptoms", variant='primary')
             with gr.Column(scale=2):
                 prediction_output = gr.Label(label="Top Predicted Rare Disease Candidates", num_top_classes=5)
-                shap_output = gr.Image(type="pil", label="Local Feature Attribution (SHAP Bar Plot)")
+                shap_output = gr.Image(type="pil", label="Local Feature Attribution (Symptom Weight Mapping)")
         
         submit_btn.click(fn=clinician_diagnose, inputs=[model_selector, symptom_input], outputs=[prediction_output, shap_output])
         
