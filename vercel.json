@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/index.py": {
-      "excludeFiles": "**/.* **/*.md **/.gradio/**"
+      "excludeFiles": "**/.* **/*.md **/.gradio/** **/tests/** **/scipy/stats/tests/** **/matplotlib/tests/** **/pandas/tests/** hp.obo phenotype.hpoa"
     }
   },
   "rewrites": [
