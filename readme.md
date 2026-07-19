@@ -52,3 +52,7 @@ Initial dashboard view before symptom input:
 
 Active diagnosis prediction panel demonstrating feature attribution mapping:
 ![Active Diagnostic Analysis](sc2 project 2.png)
+
+
+
+
