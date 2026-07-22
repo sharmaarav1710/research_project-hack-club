@@ -1,24 +1,9 @@
-Rare Disease Clinical Command Center
+Rare Disease Center
 
-Its an interactive clinical decision support platform designed to analyze rare disease phenotypes, predict genetic symptom patterns, and provide explainable AI insights.
+Its an  clinical decision support platform designed to analyze rare disease phenotypes, predict genetic symptom patterns, and provide explainable AI insights.
 
 Project Overview
-
-This research project leverages advanced machine learning models to identify underlying rare disease vectors from clinical symptom profiles. By utilizing patient phenotype data, the system evaluates potential diagnoses, calculates risk scores, and uses explainable AI techniques like SHAP to show clinicians which symptoms most strongly influence each prediction.
-
-Key Features
-
-Automated Phenotype Matching: Maps input symptoms directly to human phenotype ontology terms.
-Predictive Disease Modeling: Employs tree-based machine learning classifiers to assess high-risk rare disease matches.
-Explainable AI Diagnostic Support: Generates visual feature importance charts to explain the mathematical model's reasoning.
-Interactive Clinical Interface: A web-accessible dashboard built with Gradio for seamless medical professional interaction.
-
-Dataset and Architecture
-
-The platform uses curated clinical symptom ontologies alongside simulated and anonymized patient records. 
-Phenotypic classification is powered by a high-performance Gradient Boosting Classifier.
-Feature impact is analyzed and rendered using SHAP (SHapley Additive exPlanations).
-Real-time web deployment is managed via a containerized Python service on Render.
+The proposed research will use machine learning algorithms to discover the hidden vectors of rare diseases based on clinical symptoms. In order to achieve this, the system will use the patients’ phenotypes to compute possible diagnoses, risks, and then employ explainable artificial intelligence such as SHAP to display important symptoms for each diagnosis.
 
 Project Structure
 
@@ -41,12 +26,11 @@ Local Setup Instructions
 
 AI Usage Declaration
 
-AI tools were used during development to assist in generating boilerplate UI layout code, constructing basic data pipelines, and debugging cloud deployment configuration scripts. All core algorithmic architectures, machine learning model selections (such as the Gradient Boosting Classifier), and data engineering implementations were independently designed, integrated, and validated for clinical relevance.
+Ai has been used to help in the generation of boilerplate code for the UI layout, creation of basic data, and debugging. All the algorithmic architecture and machine learning models (Gradient Boosting Classifier among others) have been selected and implemented independently for clinical significance.
 
 Application Interface
 
-Here is a visual overview of the live clinical command center interface in action:
-
+Here is a visual overview of the interface in action:
 
 Initial dashboard view before symptom input:
 ![Initial Interface View](sc1%20project%201.png)
